@@ -9,6 +9,7 @@ contigs = fasta.FASTAReader(contig_file)
 num_contigs = 0
 total_length = 0
 avg_length = 0
+cum_length = 0
 
 all_contig_length = []
 

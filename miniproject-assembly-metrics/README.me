@@ -1,6 +1,6 @@
 # MP mini project 1 
 
-Looking at genome sequences in fasta file format
+Looking at genome sequences in fasta file format using FASTAReader, Python scripts, and UNIX commands
 
 FASTA Genomic Sequences 
 
@@ -20,11 +20,10 @@ Update your README.md with the uncompressed file sizes
 
 Update #4 summary of results
 
-
 cd qb25-answers #command line prompts
 cd miniproject-assembly-metrics #looking in the correct directory 
 chmod +x assembly-metrics.py #making my file executable
-/assembly-metrics.py caenorhabditis_remanei.PRJNA248909.WBPS19.genomic.fa#calls my script and while file to run it on
+./assembly-metrics.py caenorhabditis_remanei.PRJNA248909.WBPS19.genomic.fa #calls my script and while file to run it on
 
 caenorhabditis_remanei.PRJNA248909.WBPS19.genomic.fa
 Number of contigs:  1591
@@ -45,3 +44,31 @@ caenorhabditis_remanei.PRJNA577507.WBPS19.genomic.fa
 Number of contigs:  187
 Total length:  130480874
 Average length:  697758.6844919786
+
+Update #5 summary of results with N50 statistic
+
+./assembly-metrics.py caenorhabditis_remanei.PRJNA248909.WBPS19.genomic.fa
+Number of contigs:  1591
+Total length:  118549266
+Average length:  74512.42363293526
+sequence length of the shortest contig at 50% of the total assembly length:  1522088
+
+./assembly-metrics.py caenorhabditis_remanei.PRJNA248911.WBPS19.genomic.fa
+Number of contigs:  912
+Total length:  124541912
+Average length:  136559.11403508772
+sequence length of the shortest contig at 50% of the total assembly length:  1765890
+
+./assembly-metrics.py caenorhabditis_remanei.PRJNA53967.WBPS19.genomic.fa
+Number of contigs:  3670
+Total length:  145442736
+Average length:  39630.17329700272
+sequence length of the shortest contig at 50% of the total assembly length:  435512
+
+./assembly-metrics.py caenorhabditis_remanei.PRJNA577507.WBPS19.genomic.fa
+Number of contigs:  187
+Total length:  130480874
+Average length:  697758.6844919786
+sequence length of the shortest contig at 50% of the total assembly length:  21501900
+
+
