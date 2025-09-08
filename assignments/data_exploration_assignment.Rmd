@@ -199,9 +199,15 @@ Look up basic information about these genes on the internet. Do their expression
 
 ```{r}
 
-# Code here
+# Code here 
+liver_genes_in_heart_ventricle <- dt %>%
+  select(Name, Liver, `Heart - Left Ventricle`) %>%
+  arrange(desc(Liver)) %>%
+  head(n = 20)
 
 # Interpretation here as a comment
+#One gene that is highly expressed in both the liver and left ventricle of the heart is ENSG00000198886.2. And one gene that is expressed highly in the liver but lowly in the heart is ENSG00000163631.16. 
+
 ```
 
 ------------------------------------------------------------------------
