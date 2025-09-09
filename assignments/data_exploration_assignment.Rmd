@@ -101,7 +101,7 @@ dt %>%
 #Liver: 5132
 #Testis: 11471
 #Whole Blood: 4482
-# the tissue with the most expressed genes and least expressed genes remained the same, but the number of genes decreased 
+# the tissue with the most expressed genes and least expressed genes remained the same, but the number of genes decreased. ________ 
 
 
   
@@ -173,7 +173,7 @@ nuc_genes <- dt %>%
 mean_mit <- mean(mit_genes$Liver)
 median_mit <- median(mit_genes$Liver)
 mean_nuc <- mean(nuc_genes$Liver)
-median_nuc <- median(mit_genes$Liver)
+median_nuc <- median(nuc_genes$Liver)
 
 print(mean_mit)
 print(median_mit)
@@ -184,6 +184,8 @@ print(median_nuc)
   
 # Interpretation here as a comment
 #The mean expression of mitochondrial genes in the liver is about a thousand times more than that of the nuclear-encoded genes, whereas the medians are the same. This means that there is a much wider range of values of mitochondrial genes, and there are some outliers which very higher expression pulling the mean to be larger, because the median is still lower. 
+
+
 
 ```
 
@@ -201,12 +203,12 @@ Look up basic information about these genes on the internet. Do their expression
 
 # Code here 
 liver_genes_in_heart_ventricle <- dt %>%
-  select(Name, Liver, `Heart - Left Ventricle`) %>%
+  select(Description, Liver, `Heart - Left Ventricle`) %>%
   arrange(desc(Liver)) %>%
   head(n = 20)
 
 # Interpretation here as a comment
-#One gene that is highly expressed in both the liver and left ventricle of the heart is ENSG00000198886.2. And one gene that is expressed highly in the liver but lowly in the heart is ENSG00000163631.16. 
+#One gene that is highly expressed in both the liver and left ventricle of the heart is . And one gene that is expressed highly in the liver but lowly in the heart is . 
 
 ```
 
@@ -225,9 +227,25 @@ Which pair of tissues is more strongly correlated? Does this result make sense b
 ```{r}
 # Liver vs Heart answer
 
+liver_vector <- dt$Liver 
+heart_vector <- dt$`Heart - Left Ventricle`
+liver_heart_cor <- cor.test(liver_vector, heart_vector, method = "kendall")
+print(liver_heart_cor)
+
+
 # Liver vs Brain answer
+liver_vector <- dt$Liver 
+brain_vector <- dt$`Brain - Anterior cingulate cortex (BA24)`
+liver_brain_cor <- cor.test(liver_vector, brain_vector, method = "kendall")
+print(liver_brain_cor)
 
 # interpretation
+#Liver Heart cor: tau = 0.8053218 
+
+#Liver Brain cor: tau = 0.733215 
+
+
+
 ```
 
 ------------------------------------------------------------------------
