@@ -32,3 +32,4 @@ for line in metadata:
 if sample_id in data_dict:
     expression = data_dict[sample_id]
     print(f"SAMPLEID: {sample_id}, Expression: {expression}, Tissue: {tissue_type}")
+

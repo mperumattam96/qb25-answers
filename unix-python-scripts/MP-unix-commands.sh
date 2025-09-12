@@ -1,3 +1,4 @@
+#1
 cd qb25-answers #command line prompts
 cd unix-python-scripts #looking in the correct directory 
 chmod +x MP_python_script.py #making my file executable
@@ -5,7 +6,6 @@ chmod +x MP_python_script.py #making my file executable
 wc -l ce11_genes.bed #counts number of lines
 output: 
 #53935 features 
-
 
 cut -f 1 ce11_genes.bed|sort|uniq -c #command line prompt
 output:
@@ -86,6 +86,8 @@ output:
 #  867 Lung
 # 1132 Muscle - Skeletal
 # 3288 Whole Blood
+
+#3
 
 
 grep "RNA" GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt|wc -l #command 
