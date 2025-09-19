@@ -34,15 +34,34 @@ wc NHEKactive_notNHLF.bed
 #14013 - original number of lines in nhek-active.bed matches the sum
 # 11608+2405 = 14013 ! 
 
+#compare -a nhek-active.bed -b nhlf-active.bed (minumum overlap fraction of A or B)
+bedtools intersect -f 1 -a nhek-active.bed -b nhlf-active.bed > f_only.bed
+wc f_only.bed
+#4821
 
+bedtools intersect -F 1 -a nhek-active.bed -b nhlf-active.bed > bigF.bed
+#6731
 
+bedtools intersect -f 1 -F 1 -a nhek-active.bed -b nhlf-active.bed > bothF.bed
+#1409
 
+#relationship between the NHEK and NHLF chromatin state change as you alter the overlap parameter?
+#The f/F command determines how much overlap there is between your datasets. 
+#We need to see what nhek active states are also in nhlf active states,
+#and then what nhlf active states are also in nhek active states. The last command consists of
+#both perfectly overlapping, which is why there are far fewer hits than the first two commands. 
 
+#Active in NHEK, Active in NHLF
+bedtools intersect -u -a nhek-active.bed -b nhlf-active.bed > active-active.bed
+#The intersect function worked, as all 9 chromatin state conditions (including NHLF and NHEK) are "active" with an active promoter, and 6 have strong enhancers as well.
 
+#Active in NHEK, Repressed in NHLF
+bedtools intersect -u -a nhek-active.bed -b nhlf-repressed.bed > active-repressed.bed
+#The NHLF, HUVEC, and GM12878 conditions are repressed, while the other 6 (including NHEK) are active and ready to be transcribed. 
 
-
-
-
+#Repressed in NHEK, Repressed in NHLF
+bedtools intersect -u -a nhek-repressed.bed -b nhlf-repressed.bed > repressed-repressed.bed
+#All 9 conditions are greyed out and classified as repressed. 
 
 
 
