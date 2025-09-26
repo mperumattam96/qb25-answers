@@ -9,6 +9,13 @@ samtools idxstats /Users/cmdb/qb25-answers/week2/variants/A01_01.bam > A01_01.id
 #exercise 2
 How this visualization compares to haplotypes in BYxRM_GenoData.txt
 
-In the txt file, the AO1_01, A01_03, A01_04 are grouped together, where th A01_2, A01_5 are grouped together. This aligns with the expression data in IGTV.
+In the txt file, the AO1_01, A01_03, A01_04 have high confidence SNPs with the R call,, where th A01_2, A01_5 are grouped together with the B call. This aligns with the IGTV coverage where 01, 03, and 04 coverage is empty in the beginning and looks the same. 
 
+#exercise 4
 
+minimap2 -ax map-ont /Users/cmdb/qb25-answers/week2/genomes/sacCer3.fa /Users/cmdb/qb25-answers/week2/rawdata/ERR8562476.fastq > longreads.sam
+
+#sort .sam into .bam and index
+samtools sort -o longreads.bam longreads.sam
+samtools index longreads.bam > longreads.idxstats
+samtools idxstats /Users/cmdb/qb25-answers/week2/longreads/longreads.bam > longreads.idxstats
