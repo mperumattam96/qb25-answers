@@ -19,3 +19,13 @@ minimap2 -ax map-ont /Users/cmdb/qb25-answers/week2/genomes/sacCer3.fa /Users/cm
 samtools sort -o longreads.bam longreads.sam
 samtools index longreads.bam > longreads.idxstats
 samtools idxstats /Users/cmdb/qb25-answers/week2/longreads/longreads.bam > longreads.idxstats
+
+exercise #5
+
+hisat2-build sacCer3.fa sacCer3
+hisat2 -p 4 -x /Users/cmdb/qb25-answers/week2/genomes/sacCer3 -U /Users/cmdb/qb25-answers/week2/rawdata/SRR10143769.fastq -S SRR10143769.sam
+
+samtools sort -o SRR10143769.bam SRR10143769.sam
+samtools index SRR10143769.bam
+
+The parts of the genes that have the most coverage are the coding sequences, specifically the exons, which makes sense as this is RNA-seq data showing gene expression.
