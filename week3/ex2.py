@@ -13,3 +13,9 @@ for line in vcf_file:
     allele_freq = full_allele.strip("AF=")
     allele_freq = float(allele_freq)
     print(allele_freq)
+
+#2.1 
+# It looks roughly like a binomial distribution. This means that most 
+# frequencies are in the intermediate range, which makes sense
+# because the alleles are randomly segregated into the offspring, It is unlikely that
+# all the offspring carry same allele (allele freq=1). 
