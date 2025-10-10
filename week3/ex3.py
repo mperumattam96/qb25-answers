@@ -3,6 +3,8 @@
 sample_ids = ["A01_62", "A01_39", "A01_63", "A01_35", "A01_31", "A01_27", "A01_24", "A01_23", "A01_11", "A01_09"]
 vcf_file = open("/Users/cmdb/qb25-answers/week3/biallelic.vcf")
 
+print("SampleID\tChrom\tPos\tGenotype")
+
 for line in vcf_file:
     if line.startswith("#"):
         continue
