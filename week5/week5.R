@@ -1,6 +1,5 @@
 library (tidyverse)
 library(broom)
-install.packages("paletteer")
 library(paletteer)
 
 dnm <- read.csv("~/qb25-answers/week5/aau1043_dnm.csv")
@@ -72,3 +71,8 @@ ggplot(df_parent, aes(x = Mother_age, y = DNMs, color = Parent)) +
   ) +
   scale_color_paletteer_d("LaCroixColoR::Mango", name = "Parent") +
   theme_minimal()
+
+t.test(joined_df$DNM_count_father, joined_df$DNM_count_mother, paired = TRUE)
+
+
+
