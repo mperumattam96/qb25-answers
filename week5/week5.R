@@ -74,5 +74,19 @@ ggplot(df_parent, aes(x = Mother_age, y = DNMs, color = Parent)) +
 
 t.test(joined_df$DNM_count_father, joined_df$DNM_count_mother, paired = TRUE)
 
+#Exercise 3
+all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv')
+recipes_tibble <- as_tibble(all_recipes)
+
+sorted_recipes <- recipes_tibble %>%
+  select(name, avg_rating, total_time) %>%
+  group_by(name) %>%
+  summarise(
+    times = sum(total_time <= 60 & avg_rating >= 4.5, na.rm=TRUE)
+  )  %>% 
+  filter(times > 0) %>% 
+  arrange(desc(times)) %>%
+
+  
 
 
