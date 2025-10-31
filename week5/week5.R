@@ -74,19 +74,33 @@ ggplot(df_parent, aes(x = Mother_age, y = DNMs, color = Parent)) +
 
 t.test(joined_df$DNM_count_father, joined_df$DNM_count_mother, paired = TRUE)
 
+joined_df <- joined_df %>%
+  mutate(difference = DNM_count_father - DNM_count_mother)
+
+lm_dif <- lm(difference ~ 1, data = joined_df)
+summary(lm_dif)
+
+
 #Exercise 3
+#read in the file how github said
 all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv')
 recipes_tibble <- as_tibble(all_recipes)
 
-sorted_recipes <- recipes_tibble %>%
-  select(name, avg_rating, total_time) %>%
-  group_by(name) %>%
-  summarise(
-    times = sum(total_time <= 60 & avg_rating >= 4.5, na.rm=TRUE)
-  )  %>% 
-  filter(times > 0) %>% 
-  arrange(desc(times)) %>%
+all_recipes <- recipes_tibble
 
-  
+short_recipes <- recipes_tibble %>% 
+  filter((avg_rating>3.0)) %>%
+  filter(!is.na(total_time)) %>%
+  filter(total_time<60)
+
+ggplot(short_recipes, aes( x = avg_rating,)) +
+  geom_histogram() +
+  labs (
+    x = "Average Rating", 
+    y = "Number of Recipes"
+  )
+
+lm_recipes <- lm(avg_rating ~ total_time, data = all_recipes)
+summary(lm_recipes)
 
 

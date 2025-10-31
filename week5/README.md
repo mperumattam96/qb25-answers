@@ -16,14 +16,12 @@ Size of the relationship is 39.2, which means that on average, there are 39.2 mo
 
 The relationship is significant becuase the p value is extremely low (2.2e-16). That means that it is very  unilikely that this relationship observed occurred due to random chance. 
 
+Fit this model using lm() and compare to the results of the paired t-test. How would you interpret the coefficient estimate for the intercept term?
 
-output: 
-data:  joined_df$DNM_count_father and joined_df$DNM_count_mother
-t = 61.609, df = 395, p-value < 2.2e-16
-alternative hypothesis: true mean difference is not equal to 0
-95 percent confidence interval:
- 37.98284 40.48685
-sample estimates:
-mean difference 
-       39.23485 
+The coefficent estimate from the lm is 39.2, the same as we saw previously. This is the average difference between paternal and maternal DNMs (fathers contribute more). The error is 0.6368, and it is statistically significant as well p-value (<2e-16). 
 
+Exercise 3: Allrecipes dataset
+I wanted to look at the recipes that are quick (less than an hour to prepare) so I filtered it by rating > 3.0, and total time < 60, and ploted it in a histogram. I am looking at how the ratings are distributed, and they tend to cluster around a rating of 4.6, meaning that most "short" recipes are highly distributed. 
+
+Does total cooking time predict rating? 
+According to my lm, the slope is 4.670e-06. The rating barely increaeses with cooking time, and it is is not statistically significant (0.239). 
