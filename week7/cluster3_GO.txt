@@ -1,0 +1,22 @@
+
+
+
+
+
+Analysis Type:	PANTHER Overrepresentation Test (Released 20240807)
+Annotation Version and Release Date:	GO Ontology database DOI:  10.5281/zenodo.16423886 Released 2025-07-22
+Analyzed List:	upload_1 (Drosophila melanogaster)
+Reference List:	Drosophila melanogaster (all genes in database)
+Test Type:	FISHER
+Correction:	FDR
+GO biological process complete	Drosophila melanogaster - REFLIST (13821)	upload_1 (86)	upload_1 (expected)	upload_1 (over/under)	upload_1 (fold Enrichment)	upload_1 (raw P-value)	upload_1 (FDR)
+amino acid transmembrane transport (GO:0003333)	60	5	.37	+	13.39	3.46E-05	3.59E-02
+carboxylic acid transmembrane transport (GO:1905039)	75	6	.47	+	12.86	6.95E-06	2.52E-02
+organic acid transmembrane transport (GO:1903825)	75	6	.47	+	12.86	6.95E-06	1.68E-02
+organic acid transport (GO:0015849)	116	7	.72	+	9.70	7.60E-06	1.38E-02
+carboxylic acid transport (GO:0046942)	116	7	.72	+	9.70	7.60E-06	1.10E-02
+organic anion transport (GO:0015711)	163	7	1.01	+	6.90	6.86E-05	4.97E-02
+transmembrane transport (GO:0055085)	968	19	6.02	+	3.15	5.89E-06	4.27E-02
+regulation of cellular process (GO:0050794)	4011	9	24.96	-	.36	6.24E-05	5.02E-02
+regulation of macromolecule metabolic process (GO:0060255)	1942	1	12.08	-	.08	6.12E-05	5.54E-02
+regulation of metabolic process (GO:0019222)	2108	1	13.12	-	.08	1.56E-05	1.89E-02

@@ -4,14 +4,10 @@ library(matrixStats)
 library(ggplot2)
 library(broom)
 
-#had trouble reading in the data, so I couldn't visualize things
-#tried to code based off live coding 
 
-data_readin <- read_tsv("read_matrix.tsv")
-#head(data)
-data <- as_tibble(data_readin)
-data_numeric <- data %>% select(-1)
-data_matrix <- as.matrix(data_numeric)
+data_readin <- read.table("read_matrix.tsv")
+head(data_readin)
+data_matrix <- as.matrix(data_readin)
 valid_genes <- data_matrix[complete.cases(data_matrix), ]
 
 gene_sds <- rowSds(valid_genes)
@@ -19,26 +15,30 @@ top_genes <- order(gene_sds, decreasing = TRUE)[1:500]
 top_gene_matrix <- data_matrix[top_genes, ]
 
 pca_results <- prcomp(t(top_gene_matrix)) 
-pca_summary <- tibble(PC=seq(1, ncol(top_gene_matrix), 1,
-                      sd=pca_results$sdev) %>%
-  mutate(norm_var=sd^2)/sum(sd^2),
-    cum_var=cumsum(norm_var))
+pca_summary <- tibble (PCA1 = pca_results$x[,1], PCA2 = pca_results$x[,2], 
+                       RowNames = rownames(pca_results$x)) %>%
+                  tidyr::separate(RowNames, c("tissue","replicate"), sep="_")
+
+#plot PCA 
+pca_summary %>%
+  ggplot( aes( PCA1, PCA2, color= tissue, shape=replicate ) ) +
+  geom_point(size=3)
+
 
 #scree 
-pca_summary %>% ggplot(aed(x=PC, y=norm_var)) +
-  geom_line()+
-  geom_point()
+scree_tibble <- tibble(
+  PC = 1:length(pca_results$sdev),
+  sd=pca_results$sdev,
+  var = (pca_results$sdev)^2 / sum((pca_results$sdev)^2))
+                
+ggplot(scree_tibble, aes(x = PC, y = var)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Scree Plot",
+    x = "PC",
+    y = "Variance Explained"
+    )
 
-pca_summary %>% ggplot(aes(x=PC, y=cum_var)) +
-  geom_line() + geom_point() +
-  geom_text(aes(y=cum_var, label=round(cum_var,2)), vjust=-1)
-
-PC_data <- tibble(PC1=pca_results$x[,1],
-                  PC2=pca_results$x[,2],
-                  sample=colnames(top_gene_matrix))
-ggplot(PC_data, aes(PC1, PC2, label=sample)) +
-  geom_point(size=3) +
-  geom_text(vjust=-1)
 
 #kmeans clustering 
 
@@ -47,13 +47,21 @@ combined <- combined + data_matrix[, seq(2, 21, 3)]
 combined <- combined + data_matrix[, seq(3, 21, 3)]
 combined <- combined / 3
 
+row_sd <- rowSds(combined)
+filtered_genes <- combined[gene_sds > 1, ]
+
 set.seed(42)
-kmeans_results <- kmeans(filtered_data, centers=12, nstart=100)
+kmeans_results <- kmeans(filtered_genes, centers=12, nstart=100)
 labels <- kmeans_results$cluster
 ordering <- order(labels)
-sorted_data <- filtered_data[ordering, ]
+sorted_data <- filtered_genes[ordering, ]
 
 heatmap(sorted_data, 
         Rowv=NA, Colv=NA, 
         RowSideColors=RColorBrewer::brewer.pal(12,"Paired")[labels], 
         ylab="Gene")
+
+#GO Analysis
+cluster3 <- rownames(filtered_genes)[labels == 3]
+cluster6 <- rownames(filtered_genes)[labels == 6]
+
