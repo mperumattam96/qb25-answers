@@ -27,16 +27,24 @@ fs.close()
 # Initialize F matrix 
 F_matrix = np.zeros((len(sequence1)+1, len(sequence2)+1), dtype=int)
 for i in range(len(sequence1)+1):
-	F_matrix[i,0] = i*gap_penalty
+	F_matrix[i,0] = i*gap_penalty # first column
 for j in range(len(sequence2)+1):
-	F_matrix[0,j] = j*gap_penalty
+	F_matrix[0,j] = j*gap_penalty # first row
 	
 # Initialize traceback matrix 
-T_matrix = np.zeros((len(sequence1)+1, len(sequence2)+1), dtype=object)
+
+T_matrix = np.empty((len(sequence1)+1, len(sequence2)+1), dtype=object)
+
+up = 'up'
+left = 'left'
+diag = 'diag'
+
 for i in range(len(sequence1)+1):
-	T_matrix[i,0] = #not sure what it should be 
+    T_matrix[i,0] = up
 for j in range(len(sequence2)+1):
-	T_matrix[0,j] = #not sure what it should be 
+    T_matrix[0,j] = left
+T_matrix[0,0] = None
+
 
 #Populate matrices 
 
@@ -50,29 +58,41 @@ for i in range(1, len(sequence1)+1):  # loop through rows
 
         # tie-break
         if F_matrix[i, j] == score_diag:
-            T_matrix[i, j] = 
+            T_matrix[i, j] = diag
         elif F_matrix[i, j] == score_up:
-            T_matrix[i, j] = 
+            T_matrix[i, j] = up
         else:
-            T_matrix[i, j] = 
+            T_matrix[i, j] = left
 
+sequence1_alignment = ''
+sequence2_alignment = ''
+i = len(sequence1)
+j = len(sequence2)
 
 # Follow traceback to generate alignment 
 while i > 0 or j > 0:
-        #what I am trying to say: did the score match from a diagnoal move 
-    if i > 0 and j > 0 and F_matrix[i, j] == F_matrix[i-1, j-1] + sigma[(sequence1[i-1], sequence2[j-1])]:
+    direction = T_matrix[i, j]
+
+    if direction == 'diag':
         sequence1_alignment += sequence1[i-1]
         sequence2_alignment += sequence2[j-1]
         i -= 1
         j -= 1
-    elif i > 0 and F_matrix[i, j] == F_matrix[i-1, j] + gap_penalty:
+
+    elif direction == 'up':
         sequence1_alignment += sequence1[i-1]
         sequence2_alignment += "-"
         i -= 1
-    else:
+
+    elif direction == 'left':
         sequence1_alignment += "-"
         sequence2_alignment += sequence2[j-1]
         j -= 1
+
+
+#reverse
+sequence1_alignment = sequence1_alignment[::-1]
+sequence2_alignment = sequence2_alignment[::-1]
 
 # identify alignment 
 identity_alignment = ''
@@ -91,8 +111,11 @@ for i in range(0, len(identity_alignment), 100):
 	output.write(sequence2_alignment[i:i+100] + '\n\n\n')
 	
 #metrics 
-matches = 0
 
+#score
+alignment_score = F_matrix[len(sequence1), len(sequence2)]
+
+matches = 0
 for i in range(len(sequence1_alignment)):
     a = sequence1_alignment[i]
     b = sequence2_alignment[i]
@@ -106,3 +129,10 @@ percent_identity_seq2 = matches / len(sequence2_alignment) * 100
 #gaps 
 gaps_seq1 = sequence1_alignment.count("-")
 gaps_seq2 = sequence2_alignment.count("-")
+
+
+print("Gaps in sequence 1:", gaps_seq1)
+print("Gaps in sequence 2:", gaps_seq2)
+print("Percent identity (seq1):", percent_identity_seq1)
+print("Percent identity (seq2):", percent_identity_seq2)
+print("Alignment score:", alignment_score)
