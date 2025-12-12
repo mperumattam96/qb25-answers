@@ -24,6 +24,10 @@ for i in range(num_reads_30x): #trying to find where the reads come from in the 
   endpos = startpos + readlength
   genome_coverage[startpos:endpos] += 1
 
+## count zeros 
+zero_coverage_count = np.sum(genome_coverage == 0)
+print("Zero-coverage positions:", zero_coverage_count)
+
 ## get the range of coverages observed
 maxcoverage = max(genome_coverage)
 xs = list(range(0, maxcoverage+1)) 
